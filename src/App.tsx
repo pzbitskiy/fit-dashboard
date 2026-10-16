@@ -26,18 +26,9 @@ export function App() {
         setScreen("onboarding");
         return;
       }
-      // Auto-login with stored session if not expired
-      const storedToken = api.getStoredSession();
-      if (storedToken) {
-        try {
-          api.setSession(storedToken);
-          await refresh();
-          setScreen("dashboard");
-          return;
-        } catch {
-          // Token expired or invalid on server — clear and show unlock
-          api.setSession(null);
-        }
+      if (await api.restoreSession(refresh)) {
+        setScreen("dashboard");
+        return;
       }
       setScreen("unlock");
     } catch {

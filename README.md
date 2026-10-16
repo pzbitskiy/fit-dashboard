@@ -369,6 +369,17 @@ All endpoints require the `X-Session` header after authentication (except `/api/
 | Resolution | 10,000 ms | Default telemetry downsampling interval for chart queries |
 | Export Resolution | 1,000 ms | Higher-resolution records used during export operations |
 
+Web sessions can coexist across browsers and import scripts. The backend decides
+when a session expires; a temporary connection or server error does not clear the
+browser's saved token.
+
+To keep web sessions for longer, set `FIT_DASHBOARD_SESSION_TTL=30d` in the backend
+process environment (or the Docker Compose `.env` file) and restart/recreate the
+backend service. Supported suffixes are `s`, `m`, `h`, and `d`; the default is
+`72h`. This affects newly issued sessions only: sign in again on each device after
+changing it. Browser tokens are stored per site origin, so use the same hostname,
+scheme, and port when returning to the dashboard.
+
 ## Security
 
 > **FIT Dashboard is designed as a local-first application.** The web/Docker mode does NOT include TLS/HTTPS.

@@ -30,25 +30,14 @@ const apiBase = configuredBase.endsWith("/api") ? configuredBase : `${configured
 
 const SESSION_KEY = "sessionToken";
 const SESSION_TS_KEY = "sessionTokenTs";
-const SESSION_TTL_MS = 72 * 60 * 60 * 1000; // 72 hours
 
 function isTauriRuntime(): boolean {
   return isTauri();
 }
 
 function getStoredSession(): string | null {
-  const token = localStorage.getItem(SESSION_KEY);
-  if (!token) return null;
-  // Desktop (Tauri) tokens never expire — user logs out manually
-  if (isTauriRuntime()) return token;
-  const ts = localStorage.getItem(SESSION_TS_KEY);
-  if (!ts) return null;
-  if (Date.now() - Number(ts) > SESSION_TTL_MS) {
-    localStorage.removeItem(SESSION_KEY);
-    localStorage.removeItem(SESSION_TS_KEY);
-    return null;
-  }
-  return token;
+  // The backend validates expiry using its configured session lifetime.
+  return localStorage.getItem(SESSION_KEY);
 }
 
 let sessionToken: string | null = getStoredSession();
@@ -69,16 +58,31 @@ export const api = {
     sessionToken = token;
     if (token) {
       localStorage.setItem(SESSION_KEY, token);
-      if (!localStorage.getItem(SESSION_TS_KEY)) {
-        localStorage.setItem(SESSION_TS_KEY, String(Date.now()));
-      }
     } else {
       localStorage.removeItem(SESSION_KEY);
-      localStorage.removeItem(SESSION_TS_KEY);
     }
+    // Remove the legacy browser-side expiry timestamp, including on restore.
+    localStorage.removeItem(SESSION_TS_KEY);
   },
 
   getStoredSession,
+
+  async restoreSession(refresh: () => Promise<void>): Promise<boolean> {
+    const token = getStoredSession();
+    if (!token) return false;
+    api.setSession(token);
+    try {
+      await refresh();
+      return true;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        api.setSession(null);
+        return false;
+      }
+      // Network/server errors must not discard a potentially valid session.
+      throw error;
+    }
+  },
 
   async status(): Promise<{ needs_onboarding: boolean }> {
     if (isTauriRuntime()) {

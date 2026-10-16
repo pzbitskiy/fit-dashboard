@@ -74,7 +74,6 @@ pub fn create_session(db: &Database) -> Result<String> {
     if purged > 0 {
         tracing::info!(purged, "purged expired sessions before creating new session");
     }
-    db.delete_sessions_for_user(1)?;
 
     let token: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
