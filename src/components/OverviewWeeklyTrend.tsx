@@ -2,10 +2,11 @@ import { useMemo } from "react";
 import ReactECharts from "echarts-for-react";
 import type { Activity } from "../types";
 import { useTranslation } from "../lib/i18n";
+import { distanceDivisor, distanceLabel, type DistanceUnit } from "../lib/units";
 
 type Props = {
   activities: Activity[];
-  distanceUnit: "km" | "mi";
+  distanceUnit: DistanceUnit;
   theme: "light" | "dark";
 };
 
@@ -34,7 +35,7 @@ export function OverviewWeeklyTrend({ activities, distanceUnit, theme }: Props) 
   const tooltipText = isDark ? "#e2e8f4" : "#0f172a";
 
   const buckets = useMemo<WeekBucket[]>(() => {
-    const divisor = distanceUnit === "km" ? 1000 : 1609.344;
+    const divisor = distanceDivisor(distanceUnit);
     const map = new Map<string, { start: Date; distance: number; durationHours: number }>();
 
     for (const activity of activities) {
@@ -80,7 +81,7 @@ export function OverviewWeeklyTrend({ activities, distanceUnit, theme }: Props) 
     yAxis: [
       {
         type: "value",
-        name: distanceUnit,
+        name: distanceLabel(distanceUnit),
         axisLabel: { color: axisColor, fontSize: 11 },
         nameTextStyle: { color: axisColor, fontSize: 11 },
         splitLine: { lineStyle: { color: gridLine } },

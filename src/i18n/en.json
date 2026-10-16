@@ -186,6 +186,7 @@
   "settings.distanceUnit": "Distance Unit",
   "settings.kilometers": "Kilometers",
   "settings.miles": "Miles",
+  "settings.nauticalMiles": "Nautical miles",
   "settings.timeFormat": "Time Format",
   "settings.24hour": "24-hour",
   "settings.12hour": "12-hour",

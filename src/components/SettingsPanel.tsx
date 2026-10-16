@@ -4,6 +4,7 @@ import { api } from "../lib/api";
 import { openExternalLink } from "../lib/links";
 import { useTranslation, LANGUAGES } from "../lib/i18n";
 import { DEFAULT_HR_ZONE_BOUNDS, HR_ZONE_COLORS } from "../lib/hrZones";
+import type { DistanceUnit } from "../lib/units";
 
 type StorageInfo = {
   data_dir: string;
@@ -307,9 +308,10 @@ export function SettingsPanel({ appVersion, versionBadgeStatus }: Props) {
             <option value="dark">{t("settings.themeDark")}</option>
           </select></label>
 
-          <label><span>{t("settings.distanceUnit")}</span><select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value as "km" | "mi")}>
+          <label><span>{t("settings.distanceUnit")}</span><select value={distanceUnit} onChange={(e) => setDistanceUnit(e.target.value as DistanceUnit)}>
             <option value="km">{t("settings.kilometers")}</option>
             <option value="mi">{t("settings.miles")}</option>
+            <option value="nmi">{t("settings.nauticalMiles")}</option>
           </select></label>
 
           <label><span>{t("settings.timeFormat")}</span><select value={timeFormat} onChange={(e) => setTimeFormat(e.target.value as "12h" | "24h")}>

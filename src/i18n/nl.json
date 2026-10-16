@@ -159,6 +159,7 @@
   "settings.distanceUnit": "Afstandseenheid",
   "settings.kilometers": "Kilometers",
   "settings.miles": "Mijlen",
+  "settings.nauticalMiles": "Zeemijlen",
   "settings.timeFormat": "Tijdformaat",
   "settings.24hour": "24-uurs",
   "settings.12hour": "12-uurs",

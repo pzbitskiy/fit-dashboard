@@ -159,6 +159,7 @@
   "settings.distanceUnit": "Mesafe birimi",
   "settings.kilometers": "Kilometre",
   "settings.miles": "Mil",
+  "settings.nauticalMiles": "Deniz mili",
   "settings.timeFormat": "Saat formatı",
   "settings.24hour": "24 saat",
   "settings.12hour": "12 saat",

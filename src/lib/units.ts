@@ -1,10 +1,12 @@
-export type DistanceUnit = "km" | "mi";
+export type DistanceUnit = "km" | "mi" | "nmi";
 
 export const METERS_PER_KILOMETER = 1000;
 export const METERS_PER_MILE = 1609.344;
+export const METERS_PER_NAUTICAL_MILE = 1852;
 export const FEET_PER_METER = 3.280839895;
 
 export function distanceDivisor(unit: DistanceUnit): number {
+  if (unit === "nmi") return METERS_PER_NAUTICAL_MILE;
   return unit === "mi" ? METERS_PER_MILE : METERS_PER_KILOMETER;
 }
 
@@ -13,11 +15,12 @@ export function distanceLabel(unit: DistanceUnit): string {
 }
 
 export function speedLabel(unit: DistanceUnit): string {
+  if (unit === "nmi") return "kn";
   return unit === "mi" ? "mi/h" : "km/h";
 }
 
 export function paceLabel(unit: DistanceUnit): string {
-  return unit === "mi" ? "min/mi" : "min/km";
+  return `min/${distanceLabel(unit)}`;
 }
 
 export function elevationLabel(unit: DistanceUnit): string {
@@ -29,12 +32,11 @@ export function convertDistanceMeters(valueMeters: number, unit: DistanceUnit): 
 }
 
 export function convertSpeedMps(valueMps: number, unit: DistanceUnit): number {
-  const kmh = valueMps * 3.6;
-  return unit === "mi" ? kmh / 1.609344 : kmh;
+  return valueMps * 3600 / distanceDivisor(unit);
 }
 
 export function convertSpeedKmh(valueKmh: number, unit: DistanceUnit): number {
-  return unit === "mi" ? valueKmh / 1.609344 : valueKmh;
+  return valueKmh * METERS_PER_KILOMETER / distanceDivisor(unit);
 }
 
 export function convertElevationMeters(valueMeters: number, unit: DistanceUnit): number {
@@ -42,5 +44,5 @@ export function convertElevationMeters(valueMeters: number, unit: DistanceUnit):
 }
 
 export function convertPaceMinPerKm(valueMinPerKm: number, unit: DistanceUnit): number {
-  return unit === "mi" ? valueMinPerKm * 1.609344 : valueMinPerKm;
+  return valueMinPerKm * distanceDivisor(unit) / METERS_PER_KILOMETER;
 }

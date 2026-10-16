@@ -159,6 +159,7 @@
   "settings.distanceUnit": "Jednostka odległości",
   "settings.kilometers": "Kilometry",
   "settings.miles": "Mile",
+  "settings.nauticalMiles": "Mile morskie",
   "settings.timeFormat": "Format czasu",
   "settings.24hour": "24-godzinny",
   "settings.12hour": "12-godzinny",

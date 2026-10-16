@@ -159,6 +159,7 @@
   "settings.distanceUnit": "距离单位",
   "settings.kilometers": "公里",
   "settings.miles": "英里",
+  "settings.nauticalMiles": "海里",
   "settings.timeFormat": "时间格式",
   "settings.24hour": "24小时制",
   "settings.12hour": "12小时制",

@@ -159,6 +159,7 @@
   "settings.distanceUnit": "거리 단위",
   "settings.kilometers": "킬로미터",
   "settings.miles": "마일",
+  "settings.nauticalMiles": "해리",
   "settings.timeFormat": "시간 형식",
   "settings.24hour": "24시간",
   "settings.12hour": "12시간",

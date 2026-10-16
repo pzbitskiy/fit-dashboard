@@ -159,6 +159,7 @@
   "settings.distanceUnit": "Távolságegység",
   "settings.kilometers": "Kilométer",
   "settings.miles": "Mérföld",
+  "settings.nauticalMiles": "Tengeri mérföld",
   "settings.timeFormat": "Időformátum",
   "settings.24hour": "24 órás",
   "settings.12hour": "12 órás",

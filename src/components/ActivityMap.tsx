@@ -3,7 +3,7 @@ import maplibregl, { type StyleSpecification } from "maplibre-gl";
 import type { RecordPoint } from "../types";
 import type { MapStyle } from "../stores/settingsStore";
 import { useSettingsStore } from "../stores/settingsStore";
-import { convertElevationMeters, convertSpeedKmh, elevationLabel, speedLabel } from "../lib/units";
+import { convertElevationMeters, convertSpeedKmh, elevationLabel, speedLabel, type DistanceUnit } from "../lib/units";
 import { useTranslation } from "../lib/i18n";
 
 type Props = {
@@ -244,7 +244,7 @@ function formatElapsed(totalSeconds: number): string {
   return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-function buildTooltipHtml(props: Record<string, any>, distanceUnit: "km" | "mi"): string {
+function buildTooltipHtml(props: Record<string, any>, distanceUnit: DistanceUnit): string {
   const asFiniteNumber = (value: unknown): number | null => {
     if (value === null || value === undefined || value === "") return null;
     const n = Number(value);
