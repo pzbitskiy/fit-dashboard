@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "{title}を拡大",
+  "panel.collapse": "{title}を縮小",
   "app.connectionIssue": "接続の問題",
   "app.connectionError": "バックエンドに接続できません。サーバーが起動していることを確認してください。",
   "app.retry": "再試行",

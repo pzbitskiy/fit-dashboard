@@ -5,6 +5,7 @@ import type { MapStyle } from "../stores/settingsStore";
 import { useSettingsStore } from "../stores/settingsStore";
 import { convertElevationMeters, convertSpeedKmh, elevationLabel, speedLabel, type DistanceUnit } from "../lib/units";
 import { useTranslation } from "../lib/i18n";
+import { ExpandablePanel } from "./ExpandablePanel";
 
 type Props = {
   records: RecordPoint[];
@@ -811,6 +812,10 @@ export function ActivityMap({ records, mapStyle, setMapStyle, lapTimestampsUtc =
     });
     mapRef.current = map;
 
+    // MapLibre observes window resizes, but expanding a card changes only its container.
+    const resizeObserver = new ResizeObserver(() => map.resize());
+    resizeObserver.observe(mapContainerRef.current);
+
     map.on("load", () => {
       applyTerrainState(map, terrainEnabledRef.current);
       drawRoute(map, true);
@@ -840,6 +845,7 @@ export function ActivityMap({ records, mapStyle, setMapStyle, lapTimestampsUtc =
     });
 
     return () => {
+      resizeObserver.disconnect();
       popup.remove();
       map.remove();
       mapRef.current = null;
@@ -923,41 +929,38 @@ export function ActivityMap({ records, mapStyle, setMapStyle, lapTimestampsUtc =
   }, [timelineIndex]);
 
   return (
-    <section className="panel map-panel">
-      <div className="map-header">
-        <h3>{t("activityMap.gpsRoute")}</h3>
-        <div className="map-controls">
-          <div className="map-control">
-            <span>{t("activityMap.style")}</span>
-            <select value={selectedStyle} onChange={(e) => setMapStyle(e.target.value as MapStyle)}>
-              {Object.entries(BASEMAPS).map(([value, info]) => (
-                <option key={value} value={value}>{info.label}</option>
-              ))}
-            </select>
-          </div>
-          <div className="map-control">
-            <span>{t("activityMap.color")}</span>
-            <select value={pathColorMode} onChange={(e) => setPathColorMode(e.target.value as PathColorMode)}>
-              {PATH_COLOR_VALUES.map((val) => (
-                <option key={val} value={val}>{pathColorLabels[val]}</option>
-              ))}
-            </select>
-          </div>
-          <button
-            type="button"
-            className={`btn-outline-secondary map-toggle-btn ${terrainEnabled ? "active" : ""}`}
-            onClick={() => setTerrainEnabled((v) => !v)}
-          >
-            {t("activityMap.terrain")} {terrainEnabled ? t("activityMap.on") : t("activityMap.off")}
-          </button>
-          <button
-            type="button"
-            className={`btn-outline-secondary map-toggle-btn ${telemetryEnabled ? "active" : ""}`}
-            onClick={() => setTelemetryEnabled((v) => !v)}
-          >
-            {t("activityMap.telemetry")} {telemetryEnabled ? t("activityMap.on") : t("activityMap.off")}
-          </button>
+    <ExpandablePanel title={t("activityMap.gpsRoute")} className="map-panel">
+      <div className="map-controls">
+        <div className="map-control">
+          <span>{t("activityMap.style")}</span>
+          <select value={selectedStyle} onChange={(e) => setMapStyle(e.target.value as MapStyle)}>
+            {Object.entries(BASEMAPS).map(([value, info]) => (
+              <option key={value} value={value}>{info.label}</option>
+            ))}
+          </select>
         </div>
+        <div className="map-control">
+          <span>{t("activityMap.color")}</span>
+          <select value={pathColorMode} onChange={(e) => setPathColorMode(e.target.value as PathColorMode)}>
+            {PATH_COLOR_VALUES.map((val) => (
+              <option key={val} value={val}>{pathColorLabels[val]}</option>
+            ))}
+          </select>
+        </div>
+        <button
+          type="button"
+          className={`btn-outline-secondary map-toggle-btn ${terrainEnabled ? "active" : ""}`}
+          onClick={() => setTerrainEnabled((v) => !v)}
+        >
+          {t("activityMap.terrain")} {terrainEnabled ? t("activityMap.on") : t("activityMap.off")}
+        </button>
+        <button
+          type="button"
+          className={`btn-outline-secondary map-toggle-btn ${telemetryEnabled ? "active" : ""}`}
+          onClick={() => setTelemetryEnabled((v) => !v)}
+        >
+          {t("activityMap.telemetry")} {telemetryEnabled ? t("activityMap.on") : t("activityMap.off")}
+        </button>
       </div>
 
       <div className="map-canvas-wrap">
@@ -1032,6 +1035,6 @@ export function ActivityMap({ records, mapStyle, setMapStyle, lapTimestampsUtc =
           {t("activityMap.noGpsCoordinates")}
         </p>
       )}
-    </section>
+    </ExpandablePanel>
   );
 }

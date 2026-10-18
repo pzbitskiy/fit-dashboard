@@ -3,6 +3,7 @@ import { flushSync } from "react-dom";
 import { useActivityStore } from "../stores/activityStore";
 import { ActivityChart } from "./ActivityChart";
 import { ActivityMap } from "./ActivityMap";
+import { ExpandablePanel } from "./ExpandablePanel";
 import { CompareCharts } from "./CompareCharts";
 import { ActivityInsights } from "./ActivityInsights";
 import { ActivityContributionHeatmap } from "./ActivityContributionHeatmap";
@@ -1601,13 +1602,14 @@ export function Dashboard({ onLogout }: Props) {
                 </div>
               </div>
               <div className="detail-grid">
-                <div className="panel"><h3>{t("detail.heartRateAndPace")}</h3><ActivityChart records={selectedRecords} theme={theme} distanceUnit={distanceUnit} heartRateZoneBoundsBpm={hrZoneBounds} zoomRange={telemetryZoom} onZoomChange={setTelemetryZoom} lapTimestampsUtc={lapTimestampsUtc} smoothGraphs={smoothGraphs} /></div>
+                <ExpandablePanel title={t("detail.heartRateAndPace")}>
+                  <ActivityChart records={selectedRecords} theme={theme} distanceUnit={distanceUnit} heartRateZoneBoundsBpm={hrZoneBounds} zoomRange={telemetryZoom} onZoomChange={setTelemetryZoom} lapTimestampsUtc={lapTimestampsUtc} smoothGraphs={smoothGraphs} />
+                </ExpandablePanel>
                 <ActivityMap records={selectedRecords} mapStyle={mapStyle} setMapStyle={setMapStyle} lapTimestampsUtc={lapTimestampsUtc} />
               </div>
               <ActivityInsights records={selectedRecords} theme={theme} distanceUnit={distanceUnit} heartRateZoneBoundsBpm={hrZoneBounds} zoomRange={telemetryZoom} onZoomChange={setTelemetryZoom} lapTimestampsUtc={lapTimestampsUtc} smoothGraphs={smoothGraphs} />
               {lapRows.length > 0 && (
-                <div className="panel laps-table-panel">
-                  <h3>{t("detail.laps")}</h3>
+                <ExpandablePanel title={t("detail.laps")} className="laps-table-panel">
                   <div className="laps-table-wrap">
                     <table className="laps-table">
                       <thead>
@@ -1684,7 +1686,7 @@ export function Dashboard({ onLogout }: Props) {
                       </tfoot>
                     </table>
                   </div>
-                </div>
+                </ExpandablePanel>
               )}
             </>
           ) : (

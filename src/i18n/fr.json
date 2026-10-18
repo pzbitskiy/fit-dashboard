@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "Agrandir {title}",
+  "panel.collapse": "Réduire {title}",
   "app.connectionIssue": "Problème de connexion",
   "app.connectionError": "Impossible de joindre le serveur. Assurez-vous qu'il est en cours d'exécution.",
   "app.retry": "Réessayer",

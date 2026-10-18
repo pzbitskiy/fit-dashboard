@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "{title} panelini genişlet",
+  "panel.collapse": "{title} panelini küçült",
   "app.connectionIssue": "Bağlantı sorunu",
   "app.connectionError": "Sunucuya ulaşılamıyor. Sunucunun çalıştığından emin olun.",
   "app.retry": "Tekrar dene",

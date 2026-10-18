@@ -1,4 +1,5 @@
 import ReactECharts from "echarts-for-react";
+import { ExpandablePanel } from "./ExpandablePanel";
 import type { RecordPoint } from "../types";
 import { enableChartWheelPageScroll } from "../lib/chartScroll";
 import { buildHeartRateZones, resolveHeartRateZoneIndex } from "../lib/hrZones";
@@ -526,8 +527,8 @@ export function ActivityInsights({
       });
     });
 
-  const rowTop = [16, 64, 112, 160];
-  const rowHeight = 34;
+  const rowTop = [16, 64, 112, 160].map(top => `${top / 280 * 100}%`);
+  const rowHeight = `${34 / 280 * 100}%`;
 
   const heatOption = {
     tooltip: {
@@ -599,39 +600,32 @@ export function ActivityInsights({
 
   return (
     <section className="insight-grid">
-      <article className="panel">
-        <h3>{tr("insights.speedTrend")}</h3>
-        <ReactECharts option={timelineOption} onEvents={zoomEvents} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-      </article>
+      <ExpandablePanel title={tr("insights.speedTrend")}>
+        <ReactECharts option={timelineOption} onEvents={zoomEvents} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+      </ExpandablePanel>
       {hasPowerData && hasHeartRateData && (
-        <article className="panel">
-          <h3>{tr("insights.heartRateZoneTime")}</h3>
-          <ReactECharts option={zoneOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-        </article>
+        <ExpandablePanel title={tr("insights.heartRateZoneTime")}>
+          <ReactECharts option={zoneOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+        </ExpandablePanel>
       )}
       {hasHeartRateData && (
-        <article className="panel">
-          <h3>{tr("insights.hrHistogram")}</h3>
-          <ReactECharts option={hrHistogramOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-        </article>
+        <ExpandablePanel title={tr("insights.hrHistogram")}>
+          <ReactECharts option={hrHistogramOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+        </ExpandablePanel>
       )}
-      <article className="panel">
-        <h3>{hasPowerData ? tr("insights.cadenceAndPower") : tr("insights.cadence")}</h3>
-        <ReactECharts option={cadenceOption} onEvents={zoomEvents} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-      </article>
-      <article className="panel">
-        <h3>{tr("insights.effortHeatmap")}</h3>
-        <ReactECharts option={heatOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-      </article>
-      <article className="panel">
-        <h3>{tr("insights.elevation")}</h3>
-        <ReactECharts option={elevationOption} onEvents={zoomEvents} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-      </article>
+      <ExpandablePanel title={hasPowerData ? tr("insights.cadenceAndPower") : tr("insights.cadence")}>
+        <ReactECharts option={cadenceOption} onEvents={zoomEvents} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+      </ExpandablePanel>
+      <ExpandablePanel title={tr("insights.effortHeatmap")}>
+        <ReactECharts option={heatOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+      </ExpandablePanel>
+      <ExpandablePanel title={tr("insights.elevation")}>
+        <ReactECharts option={elevationOption} onEvents={zoomEvents} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+      </ExpandablePanel>
       {hasPowerData && hasHeartRateData && (
-        <article className="panel">
-          <h3>{tr("insights.powerVsHeartRate")}</h3>
-          <ReactECharts option={scatterOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: 280, width: "100%" }} />
-        </article>
+        <ExpandablePanel title={tr("insights.powerVsHeartRate")}>
+          <ReactECharts option={scatterOption} onChartReady={enableChartWheelPageScroll} notMerge style={{ height: "var(--insight-chart-height, 280px)", width: "100%" }} />
+        </ExpandablePanel>
       )}
     </section>
   );

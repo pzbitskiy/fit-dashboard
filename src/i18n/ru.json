@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "Развернуть: {title}",
+  "panel.collapse": "Свернуть: {title}",
   "app.connectionIssue": "Проблема с подключением",
   "app.connectionError": "Не удалось связаться с сервером. Убедитесь, что сервер запущен, и повторите попытку.",
   "app.retry": "Повторить",

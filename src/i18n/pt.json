@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "Expandir {title}",
+  "panel.collapse": "Recolher {title}",
   "app.connectionIssue": "Problema de conexão",
   "app.connectionError": "Não foi possível conectar ao backend. Certifique-se de que o servidor está em execução.",
   "app.retry": "Tentar novamente",

@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "展开{title}",
+  "panel.collapse": "收起{title}",
   "app.connectionIssue": "连接问题",
   "app.connectionError": "无法连接到后端。请确保服务器正在运行。",
   "app.retry": "重试",

@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "Powiększ {title}",
+  "panel.collapse": "Zmniejsz {title}",
   "app.connectionIssue": "Problem z połączeniem",
   "app.connectionError": "Nie można połączyć się z serwerem. Upewnij się, że serwer działa.",
   "app.retry": "Ponów",

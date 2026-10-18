@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "{title} 확대",
+  "panel.collapse": "{title} 축소",
   "app.connectionIssue": "연결 문제",
   "app.connectionError": "백엔드에 연결할 수 없습니다. 서버가 실행 중인지 확인하세요.",
   "app.retry": "다시 시도",

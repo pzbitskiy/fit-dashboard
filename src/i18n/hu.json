@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "{title} nagyítása",
+  "panel.collapse": "{title} kicsinyítése",
   "app.connectionIssue": "Kapcsolati hiba",
   "app.connectionError": "A backend nem érhető el. Győződjön meg arról, hogy a szerver fut.",
   "app.retry": "Újra",

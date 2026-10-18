@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "Expand {title}",
+  "panel.collapse": "Collapse {title}",
   "app.connectionIssue": "Connection issue",
   "app.connectionError": "Could not reach the backend. Ensure server is running, then retry.",
   "app.retry": "Retry",

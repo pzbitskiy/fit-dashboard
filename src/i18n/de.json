@@ -1,4 +1,7 @@
 {
+
+  "panel.expand": "{title} vergrößern",
+  "panel.collapse": "{title} verkleinern",
   "app.connectionIssue": "Verbindungsproblem",
   "app.connectionError": "Backend nicht erreichbar. Stellen Sie sicher, dass der Server läuft.",
   "app.retry": "Erneut versuchen",
